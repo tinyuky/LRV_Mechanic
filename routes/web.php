@@ -1,5 +1,6 @@
 <?php
 use App\User;
+use App\Customer;	
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test',function(){
 	$user =User::find(1);
 	//return view('layouts.mechanic_home_header',['post'=>$user]);
-	return view('pages.home.home')->with('user',$user);
+	$post = Customer::all();
+	return view('pages.customer.customer')->with('user',$user)->with('post',$post);
 });
+
+Route::resource('customer','CustomerCRUDController');
 

@@ -13,7 +13,7 @@
                         </div>
                         <div class="col-md-2">
                             <div>
-                                <button type="button" class="btn green-meadow"> <i class="fa fa-check"></i> Add new customer</button>
+                                <a href="{{route('customer.create')}}" class="btn green-meadow"><i class="fa fa-check"></i> Add new customer</a>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                                     <div class="form-group">
                                         <label for="number" class="col-md-2 control-label">Phone Number <i class="fa fa-asterisk"></i> </label>
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" id="number" placeholder="Name"> 
+                                            <input type="text" class="form-control" id="number" placeholder="Phone number"> 
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,6 @@
                                             <th> Gender </th>
                                             <th> Phone Number </th>
                                             <th> Date </th>
-                                            <th> Options </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -99,9 +98,6 @@
                                             <td>{{$post[$i]->gender}}</td>
                                             <td>{{$post[$i]->phone}}</td>
                                             <td>{{$post[$i]->date}}</td>
-                                            <td>
-                                                
-                                            </td>
                                         </tr>
                                         @endfor
                                     </tbody>
