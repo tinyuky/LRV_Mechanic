@@ -29,7 +29,8 @@
 	<link rel="shortcut icon" href="favicon.ico" /> </head>
 	<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
 		@yield('content_header')
-		@yield('content')
+		@yield('slide')
+		@yield('footer')
 		<script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 		<script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Customer;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user =User::find(1);
-        return view('pages.home.home')->with('user',$user);
+        $user = User::find(1);
+        $post = Customer::all();
+        return view('pages.home.home')->with('user',$user)->with('post',$post);
     }
 }
