@@ -22,9 +22,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test',function(){
 	$user =User::find(1);
 	//return view('layouts.mechanic_home_header',['post'=>$user]);
-	$post = Customer::all();
-	return view('pages.customer.customer')->with('user',$user)->with('post',$post);
-});
+	$cus = Customer::find(1);
+	return view('pages.customer.customer')->with('user',$user)->with('cus','abc');
+})->name('test');
 
 Route::resource('customer','CustomerCRUDController');
-
+Route::get('customer/search', 'CustomerCRUDController@show')->name('customer.search');
+Route::post('customer/update', 'CustomerCRUDController@update')->name('customer.up');
