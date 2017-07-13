@@ -31,7 +31,7 @@
 	<!-- BEGIN THEME LAYOUT STYLES -->
 	<!-- END THEME LAYOUT STYLES -->
 	<link rel="shortcut icon" href="favicon.ico" /> </head>
-	<script src="../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+	<script src="assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 	<body>
 		@yield('content')
 		<script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>

@@ -2,17 +2,15 @@
 
 @section('content')
  <div class="user-login-5">
-            <div class="row bs-reset">
-                <div class="col-md-6 bs-reset">
-                    <div class="login-bg" style="background-image:url(assets/pages/img/login/bg1.jpg)">
-                        <img class="login-logo" src="assets/pages/img/login/logo.png" /> </div>
+            <div class="row">
+                <div class="col-md-6 ">                   
+                        <img class="login-bg" src="{!!asset('assets/pages/img/login/bg1.jpg')!!}" style="height: 200px;width: 700px" /> 
                 </div>
-                <div class="col-md-6 login-container bs-reset">
+                <div class="col-md-6 login-container">
                     <div class="login-content">
                         <h1>Metronic Admin Login</h1>
                         <form action="{{ route('login') }}" class="login-form" method="post" >
                         {!! csrf_field() !!}
-                        <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
                             <div class="alert alert-danger display-hide">
                                 <button class="close" data-close="alert"></button>
                                 <span>Enter any email and password. </span>
@@ -54,8 +52,8 @@
                         <!-- END FORGOT PASSWORD FORM -->
                     </div>
                     <div class="login-footer">
-                        <div class="row bs-reset">
-                            <div class="col-xs-5 bs-reset">
+                        <div class="row ">
+                            <div class="col-xs-5 ">
                                 <ul class="login-social">
                                     <li>
                                         <a href="javascript:;">
@@ -74,7 +72,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="col-xs-7 bs-reset">
+                            <div class="col-xs-7 ">
                                 <div class="login-copyright text-right">
                                     <p>Copyright &copy; Keenthemes 2015</p>
                                 </div>

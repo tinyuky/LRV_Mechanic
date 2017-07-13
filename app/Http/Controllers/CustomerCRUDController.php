@@ -80,7 +80,7 @@ class CustomerCRUDController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function showfromsearch(Request $request)
     {
         $this->validate($request,array(
             'name' => 'required|string|max:255',
@@ -115,6 +115,12 @@ class CustomerCRUDController extends Controller
             return redirect()->back()->with('message','CUSTOMER NOT EXIST');
         }
         
+    }
+
+    public function show($id){
+        $user =User::find(1);
+        $cus = Customer::find($id);
+        return view('pages.customer.customer')->with('user',$user)->with('cus',$cus);
     }
 
     /**
@@ -185,6 +191,8 @@ class CustomerCRUDController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Customer::find($id);
+        $user->delete();
+        return redirect()->route('customer.index')->with('status', 'CUSTOMER DELETED!');
     }
 }

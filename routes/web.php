@@ -27,5 +27,6 @@ Route::get('/test',function(){
 })->name('test');
 
 Route::resource('customer','CustomerCRUDController');
-Route::get('customer/search', 'CustomerCRUDController@show')->name('customer.search');
+Route::get('search', 'CustomerCRUDController@showfromsearch')->name('customer.searchform');
 Route::post('customer/update', 'CustomerCRUDController@update')->name('customer.up');
+

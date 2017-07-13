@@ -29,7 +29,7 @@
                                     {{ session('message') }}
                                 </div>
                             @endif
-                            <form class="form-horizontal" role="form" action="{{route('customer.search')}}"
+                            <form class="form-horizontal" role="form" action="{{route('customer.searchform')}}"
                                   method="get">
                                 <div class="form-body">
                                     <div class="form-group">
@@ -156,19 +156,57 @@
                                             <td>{{$post[$i]->gender}}</td>
                                             <td>{{$post[$i]->phone}}</td>
                                             <td>{{$post[$i]->date}}</td>
-                                            <td><a href="javascript:;" class="btn btn-outline btn-circle btn-sm green-meadow">
-                                                            <i class="fa fa-edit"></i> Edit </a>
-                                                <a href="javascript:;" class="btn btn-outline btn-circle btn-sm red">
-                                                            <i class="fa fa-delete"></i> Delete </a>
-                                                            </td>
+                                            <td>
+                                                <div class="modal fade" role="dialog" id="myModal" tabindex="-1"
+                                                     aria-labelledby="myModalLabel" style="display: none;">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close"><span
+                                                                            aria-hidden="true">×</span></button>
+                                                                <h4 class="modal-title" id="myModalLabel"
+                                                                    style="color: red">Caution</h4></div>
+                                                            <div class="modal-body">
+                                                                <h4 style="text-align: center">Are you sure to delete
+                                                                    this?</h4>
+                                                                <h4>Name: {{$post[$i]->name}}</h4>
+                                                                <h4>Email: {{$post[$i]->email}}</h4>
+                                                                <h4>Gender: {{$post[$i]->gender}}</h4>
+                                                                <h4>Phone: {{$post[$i]->phone}}</h4>
+                                                                <h4>Date: {{$post[$i]->date}}</h4>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                {{ Form::open(['route' => ['customer.destroy',$post[$i]->id], 'method' => 'delete']) }}
+                                                                <button type="submit" class="btn btn-danger">Delete
+                                                                </button>
+                                                                {{ Form::close() }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <a href="{{route('customer.show',$post[$i]->id)}}"
+                                                   class="btn btn-outline btn-circle btn-sm green-meadow">
+                                                    <i class="fa fa-edit"></i> Edit </a>
+
+                                                <a
+                                                        class="btn btn-outline btn-circle btn-sm red"
+                                                        data-toggle="modal" data-target="#myModal">
+                                                    <i class="fa fa-delete"></i> Delete </a>
+                                            </td>
+
                                         </tr>
                                     @endfor
                                     </tbody>
                                 </table>
+
                             </div>
-                            <div class="text-center">                   
-                                {!! $post->links() !!}
+                            <div class="text-center">
+                                {{$post->links()}}
                             </div>
+
                         </div>
                     </div>
                 </div>
