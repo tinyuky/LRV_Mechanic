@@ -8,6 +8,8 @@ use App\Customer;
 use Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 
 class CustomerCRUDController extends Controller
 {
@@ -53,21 +55,31 @@ class CustomerCRUDController extends Controller
             'phone' => 'required|numeric|unique:customer,phone',
             'email' => 'required|string|email|max:255|unique:customer,email',
             'content' => 'required|string|max:255',
-            'date' =>'date',
+            'file'=> 'image|max:3027',
             ));
-        if($request->date!=null){
-            $date = date('Y-m-d', strtotime(str_replace('-', '/', $request->date)));
-        }
-        
         Customer::create([
             'name'=> $request->name,
             'gender'=> $request->gender,
             'phone'=> $request->phone,
             'email'=> $request->email,
-            'content'=> $request->content,
-            'date'=> $date,
+            'content'=> $request->content            
             ]);
-
+        $a = Customer::where('email',$request->email)->first();
+        if($request->date!=null){
+            $date = date('Y-m-d', strtotime(str_replace('-', '/', $request->date)));
+            $a->date = $date;
+        }
+        if($request->file!=null){
+            $savedurl = $request->file->store('public');
+            $savename = str_replace('public/', '', $savedurl);
+            //$b = Storage::delete($savedurl);
+            //UploadedFile::fake()->image($savename, 200, 200);
+            $a->avatar = 'storage/'.$savename;
+        }
+        else{
+            $a->avatar = 'storage/avatar.jpeg';
+        }
+        $a->save();       
         return redirect()->route('customer.index')->with('status','CUSTOMER ADDED!');
         
         
@@ -150,22 +162,23 @@ class CustomerCRUDController extends Controller
                 'name' => 'required|string|max:255',
                 'gender' => 'required|string|max:255',
                 'phone' => 'numeric',
-                'email' => 'string|email|max:255',
+                'email' => 'email|max:255',
                 'content' => 'required|string|max:255',
-                'date'=>'date',
+                'file'=> 'image|max:3027',
                 ));
 
 
             Validator::make($data, [
                 'email' => [
                 'required',
-                Rule::unique('customer')->ignore($request->id),
+                Rule::unique('customer')->ignore($cus->id),
                 ],
                 'phone' => [
                 'required',
-                Rule::unique('customer')->ignore($request->id),
+                Rule::unique('customer')->ignore($cus->id),
                 ],
                 ]);
+            $cus = Customer::find($request->id);
             $cus->name = $request->input('name');
             $cus->gender = $request->input('gender');
             $cus->phone = $request->input('phone');
@@ -174,10 +187,17 @@ class CustomerCRUDController extends Controller
             if($request->input('date')!=null){
                 $date = date('Y-m-d', strtotime(str_replace('-', '/', $request->input('date'))));
                 $cus->date = $date;
-            }           
+            }
+            if($request->file!=null){
+                $savedurl = $request->file->store('public');
+                $savename = str_replace('public/', '', $savedurl);
+                $cus->avatar = 'storage/'.$savename;
+        }
+
             $cus->save();
             return redirect()->route('customer.index')->with('status','CUSTOMER UPDATED!');
         }
+
         
 
         

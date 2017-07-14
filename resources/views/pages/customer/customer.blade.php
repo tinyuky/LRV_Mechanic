@@ -15,10 +15,63 @@
                                 </div>
                             </div>
                             <div class="portlet-body form">
-                                <form class="form-horizontal" role="form" action="{{route('customer.store')}}"
-                                      method="post" novalidate="novalidate">
+                                <form class="form-horizontal" role="form" action="{{route('customer.up')}}"
+                                      method="post" novalidate="novalidate" enctype="multipart/form-data">
                                     {!! csrf_field() !!}
                                     <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label" for="file">Avatar</label>
+
+                                            <div class="col-md-8">
+                                                <img id="imgdf" src="{!!asset($cus->avatar)!!}" height="200px"
+                                                     width="200px" style="margin-bottom: 10px">
+                                                <br>
+                                                <input onchange="ValidateSize(this)" type="file" id="file" name="file"
+                                                       accept="image/*">
+
+                                                @if ($errors->has('file'))
+                                                    <span class="help-block help-block-error danger"
+                                                          style="color: red">{{$errors->first('file')}}</span>
+                                                @endif
+                                                <button type="reset" id="file_reset" style="display:none">
+                                                    <script type="text/javascript">
+                                                        function ValidateSize(file) {
+                                                            var selected_file_name = $(file).val();
+                                                            if (selected_file_name.length > 0) {
+                                                                var FileSize = file.files[0].size / 1024 / 1024; // in MB
+                                                                if (FileSize > 3) {
+                                                                    alert('File size exceeds 3 MB');
+                                                                    $('#file_reset').trigger('click');
+
+                                                                }
+                                                                else {
+                                                                    var reader = new FileReader();
+                                                                    reader.onload = function (e) {
+                                                                        $('#imgdf')
+                                                                                .attr('src', e.target.result)
+                                                                                .width(200)
+                                                                                .height(200);
+                                                                    };
+                                                                    reader.readAsDataURL(file.files[0]);
+                                                                }
+                                                            }
+                                                            else {
+                                                                $('#imgdf')
+                                                                        .attr('src', "{!!asset($cus->avatar)!!}")
+                                                                        .width(200)
+                                                                        .height(200);
+                                                            }
+                                                        }
+                                                    </script>
+                                            </div>
+                                        </div>
+                                        <div class="form-group hidden">
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" name="id" id="id"
+                                                       placeholder="Name" data-required="1"
+                                                       value="{{ $cus->id }}">
+                                            </div>
+                                        </div>
 
                                         <div class="form-group">
                                             <label for="name" class="col-md-2 control-label">Name<span class="required"
@@ -27,11 +80,13 @@
 
                                             <div class="col-md-8">
                                                 @if(old('name')!=null)
-                                                <input type="text" class="form-control" name="name" id="name"
-                                                       placeholder="Name" data-required="1" value="{{ old('name') }}">
+                                                    <input type="text" class="form-control" name="name" id="name"
+                                                           placeholder="Name" data-required="1"
+                                                           value="{{ old('name') }}">
                                                 @else
-                                                <input type="text" class="form-control" name="name" id="name"
-                                                       placeholder="Name" data-required="1" value="{{ $cus->name }}">
+                                                    <input type="text" class="form-control" name="name" id="name"
+                                                           placeholder="Name" data-required="1"
+                                                           value="{{ $cus->name }}">
                                                 @endif
                                                 @if ($errors->has('name'))
                                                     <span class="help-block help-block-error danger"
@@ -49,11 +104,11 @@
                                                             <i class="fa fa-envelope"></i>
                                                         </span>
                                                     @if(old('email')!=null)
-                                                    <input type="email" name="email" id="email" class="form-control"
-                                                           placeholder="Email" value="{{ old('email') }}">
+                                                        <input type="email" name="email" id="email" class="form-control"
+                                                               placeholder="Email" value="{{ old('email') }}">
                                                     @else
-                                                    <input type="email" name="email" id="email" class="form-control"
-                                                           placeholder="Email" value="{{ $cus->email }}">
+                                                        <input type="email" name="email" id="email" class="form-control"
+                                                               placeholder="Email" value="{{ $cus->email }}">
                                                     @endif
                                                 </div>
                                                 @if ($errors->has('email'))
@@ -71,24 +126,28 @@
                                                     @if(old('gender')==null)
                                                         <label class="mt-radio">
                                                             @if($cus->gender=='female')
-                                                            <input type="radio" name="gender" id="gender" value="female"
-                                                                   checked="">Female
-                                                            <span></span>
+                                                                <input type="radio" name="gender" id="gender"
+                                                                       value="female"
+                                                                       checked="">Female
+                                                                <span></span>
                                                             @else
-                                                            <input type="radio" name="gender" id="gender" value="female"
-                                                                   >Female
-                                                            <span></span>
+                                                                <input type="radio" name="gender" id="gender"
+                                                                       value="female"
+                                                                        >Female
+                                                                <span></span>
                                                             @endif
                                                         </label>
                                                         <label class="mt-radio">
                                                             @if($cus->gender=='male')
-                                                            <input type="radio" name="gender" id="gender" value="male"
-                                                                   checked="">Male
-                                                            <span></span>
+                                                                <input type="radio" name="gender" id="gender"
+                                                                       value="male"
+                                                                       checked="">Male
+                                                                <span></span>
                                                             @else
-                                                            <input type="radio" name="gender" id="gender" value="male"
-                                                                   >Male
-                                                            <span></span>
+                                                                <input type="radio" name="gender" id="gender"
+                                                                       value="male"
+                                                                        >Male
+                                                                <span></span>
                                                             @endif
                                                         </label>
                                                     @else
@@ -130,11 +189,11 @@
 
                                             <div class="col-md-8">
                                                 @if(old('phone')!=null)
-                                                <input type="text" class="form-control" name="phone"
-                                                       placeholder="Phone number" value="{{ old('phone') }}">
+                                                    <input type="text" class="form-control" name="phone"
+                                                           placeholder="Phone number" value="{{ old('phone') }}">
                                                 @else
-                                                <input type="text" class="form-control" name="phone"
-                                                       placeholder="Phone number" value="{{ $cus->phone }}">
+                                                    <input type="text" class="form-control" name="phone"
+                                                           placeholder="Phone number" value="{{ $cus->phone }}">
                                                 @endif
                                                 @if ($errors->has('phone'))
                                                     <span class="help-block help-block-error danger"
@@ -178,16 +237,16 @@
                                             <div class="col-md-4">
                                                 <div class="input-group input-medium date date-picker">
                                                     @if(old('date')!=null)
-                                                    <input type="text" name="date" size="16" readonly=""
-                                                           class="form-control" value="{{ old('date') }}">
+                                                        <input type="text" name="date" size="16" readonly=""
+                                                               class="form-control" value="{{ old('date') }}">
                                                         <span class="input-group-btn">
                                                             <button class="btn default date-set" type="button">
                                                                 <i class="fa fa-calendar"></i>
                                                             </button>
                                                         </span>
                                                     @else
-                                                    <input type="text" name="date" size="16" readonly=""
-                                                           class="form-control" value="{{ $cus->date }}">
+                                                        <input type="text" name="date" size="16" readonly=""
+                                                               class="form-control" value="{{ $cus->date }}">
                                                         <span class="input-group-btn">
                                                             <button class="btn default date-set" type="button">
                                                                 <i class="fa fa-calendar"></i>
@@ -231,10 +290,57 @@
                                 </div>
                             </div>
                             <div class="portlet-body form">
-                                <form class="form-horizontal" role="form" action="{{route('customer.store')}}"
-                                      method="post" novalidate="novalidate">
+                                <form name="addform" class="form-horizontal" role="form"
+                                      action="{{route('customer.store')}}"
+                                      method="post" novalidate="novalidate" enctype="multipart/form-data">
                                     {!! csrf_field() !!}
                                     <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label" for="file">Avatar</label>
+
+                                            <div class="col-md-8">
+                                                <img id="imgdf" src="{!!asset('storage/avatar.jpeg')!!}" height="200px"
+                                                     width="200px" style="margin-bottom: 10px">
+                                                <br>
+                                                <input onchange="ValidateSize(this)" type="file" id="file" name="file"
+                                                       accept="image/*">
+
+                                                @if ($errors->has('file'))
+                                                    <span class="help-block help-block-error danger"
+                                                          style="color: red">{{$errors->first('file')}}</span>
+                                                @endif
+                                                <button type="reset" id="file_reset" style="display:none">
+                                                    <script type="text/javascript">
+                                                        function ValidateSize(file) {
+                                                            var selected_file_name = $(file).val();
+                                                            if (selected_file_name.length > 0) {
+                                                                var FileSize = file.files[0].size / 1024 / 1024; // in MB
+                                                                if (FileSize > 3) {
+                                                                    alert('File size exceeds 3 MB');
+                                                                    $('#file_reset').trigger('click');
+
+                                                                }
+                                                                else {
+                                                                    var reader = new FileReader();
+                                                                    reader.onload = function (e) {
+                                                                        $('#imgdf')
+                                                                                .attr('src', e.target.result)
+                                                                                .width(200)
+                                                                                .height(200);
+                                                                    };
+                                                                    reader.readAsDataURL(file.files[0]);
+                                                                }
+                                                            }
+                                                            else {
+                                                                $('#imgdf')
+                                                                        .attr('src', "{!!asset('storage/avatar.jpeg')!!}")
+                                                                        .width(200)
+                                                                        .height(200);
+                                                            }
+                                                        }
+                                                    </script>
+                                            </div>
+                                        </div>
 
                                         <div class="form-group">
                                             <label for="name" class="col-md-2 control-label">Name<span class="required"
