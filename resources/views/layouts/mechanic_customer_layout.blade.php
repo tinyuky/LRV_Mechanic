@@ -33,6 +33,7 @@
 	<link rel="shortcut icon" href="favicon.ico" />
 	<script type="text/javascript" rel="stylesheet" type="text/javascript"
 	src="{!!asset('js/plugins/ckeditor/ckeditor.js')!!}"></script>
+	
 
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
@@ -65,5 +66,6 @@
 	<script src="{!!asset('assets/layouts/layout/scripts/layout.min.js')!!}" type="text/javascript"></script>
 	<script src="{!!asset('assets/layouts/layout/scripts/demo.min.js')!!}" type="text/javascript"></script>
 	<script src="{!!asset('assets/layouts/global/scripts/quick-sidebar.min.js')!!}" type="text/javascript"></script>
+	
 </body>
 </html>

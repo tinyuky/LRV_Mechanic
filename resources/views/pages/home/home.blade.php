@@ -156,8 +156,39 @@
                                             <td>{{$post[$i]->gender}}</td>
                                             <td>{{$post[$i]->phone}}</td>
                                             <td>{{$post[$i]->date}}</td>
-                                            <td>
-                                                <div class="modal fade" role="dialog" id="myModal" tabindex="-1"
+                                            <td>                                           
+                                                <a href="{{route('customer.show',$post[$i]->id)}}"
+                                                   class="btn btn-outline btn-circle btn-sm green-meadow">
+                                                    <i class="fa fa-edit"></i> Edit </a>
+
+                                                <button type="button"
+                                                id="delete-court-button" 
+                                                        class="btn btn-outline btn-circle btn-sm red"
+                                                        data-toggle="modal" data-target="#myModal{{$i}}">
+                                                    <i class="fa fa-delete"> Delete</button>
+                                            </td>
+
+                                        </tr>
+                                    @endfor
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                            <div class="text-center">
+                                {{$post->links()}}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END CONTENT BODY -->
+    </div>
+    <!-- END CONTENT -->
+@for ($i=0;$i<count($post);$i++)
+<div class="modal fade" role="dialog" id="myModal{{$i}}" tabindex="-1"
                                                      aria-labelledby="myModalLabel" style="display: none;">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
@@ -186,33 +217,6 @@
                                                     </div>
                                                 </div>
 
+@endfor
 
-                                                <a href="{{route('customer.show',$post[$i]->id)}}"
-                                                   class="btn btn-outline btn-circle btn-sm green-meadow">
-                                                    <i class="fa fa-edit"></i> Edit </a>
-
-                                                <a
-                                                        class="btn btn-outline btn-circle btn-sm red"
-                                                        data-toggle="modal" data-target="#myModal">
-                                                    <i class="fa fa-delete"></i> Delete </a>
-                                            </td>
-
-                                        </tr>
-                                    @endfor
-                                    </tbody>
-                                </table>
-
-                            </div>
-                            <div class="text-center">
-                                {{$post->links()}}
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END CONTENT BODY -->
-    </div>
-    <!-- END CONTENT -->
 @endsection
