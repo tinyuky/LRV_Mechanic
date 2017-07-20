@@ -30,3 +30,5 @@ Route::resource('customer','CustomerCRUDController');
 Route::get('search', 'CustomerCRUDController@showfromsearch')->name('customer.searchform');
 Route::post('customer/update', 'CustomerCRUDController@update')->name('customer.up');
 Route::post('customer/preview', 'CustomerCRUDController@preview')->name('customer.preview');
+Route::post('customer/preview/save', 'CustomerCRUDController@store')->name('customer.previewstore');
+Route::post('customer/preview/update', 'CustomerCRUDController@update')->name('customer.previewup');

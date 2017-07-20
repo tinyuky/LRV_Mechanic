@@ -15,16 +15,24 @@
                                 </div>
                             </div>
                             <div class="portlet-body form">
-                                <form class="form-horizontal" role="form" action="{{route('customer.up')}}"
+                                <form class="form-horizontal" role="form" action="{{route('customer.preview')}}"
                                       method="post" novalidate="novalidate" enctype="multipart/form-data">
                                     {!! csrf_field() !!}
                                     <div class="form-body">
+                                      <div class="form-group hidden">
+                                          <input type="text" id="oldimage" name="oldimage" value="">
+                                      </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label" for="file">Avatar</label>
 
                                             <div class="col-md-8">
+                                              @if(old('oldimage')!=null)
+                                                  <img id="imgdf" src="{!!asset('storage/old.jpeg')!!}" height="200px"
+                                                       width="200px" style="margin-bottom: 10px">
+                                              @else
                                                 <img id="imgdf" src="{!!asset($cus->avatar)!!}" height="200px"
                                                      width="200px" style="margin-bottom: 10px">
+                                              @endif
                                                 <br>
                                                 <input onchange="ValidateSize(this)" type="file" id="file" name="file"
                                                        accept="image/*">
@@ -53,6 +61,7 @@
                                                                                 .height(200);
                                                                     };
                                                                     reader.readAsDataURL(file.files[0]);
+                                                                    $('#oldimage').val(file.files[0]);
                                                                 }
                                                             }
                                                             else {
@@ -67,7 +76,7 @@
                                         </div>
                                         <div class="form-group hidden">
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control" name="id" id="id"
+                                                <input type="text" class="form-control" name="id" 
                                                        placeholder="Name" data-required="1"
                                                        value="{{ $cus->id }}">
                                             </div>
@@ -291,7 +300,7 @@
                             </div>
                             <div class="portlet-body form">
                                 <form name="addform" class="form-horizontal" role="form"
-                                      action="{{route('customer.store')}}"
+                                      action="{{route('customer.preview')}}"
                                       method="post" novalidate="novalidate" enctype="multipart/form-data">
                                     {!! csrf_field() !!}
                                     <div class="form-body">
@@ -464,10 +473,9 @@
                                                         filebrowserFlashBrowserUrl: '../js/plugins/ckfinder/ckfinder.html?Type=Flash',
                                                         filebrowserImageUploadUrl: '../js/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
                                                         filebrowserFlashUploadUrl: '../js/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash',
-                                                    })
-
+                                                    });
                                                     CKEDITOR.instances.content.setData('<?php echo old('content') ?>');
-
+                                                    CKEDITOR.instances.content.setData('<?php echo request('content') ?>');
                                                 </script>
                                                 @if ($errors->has('content'))
                                                     <span class="help-block help-block-error danger"
@@ -475,6 +483,9 @@
                                                 @endif
                                             </div>
 
+                                        </div>
+                                        <div class="form-group hidden">
+                                            <input type="text" name="previewcontent">
                                         </div>
                                         <div class="form-group last">
                                             <label class="col-md-2 control-label">Date</label>

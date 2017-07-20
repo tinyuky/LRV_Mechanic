@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
 use File;
-
+use Purifier;
 
 class CustomerCRUDController extends Controller
 {
@@ -31,12 +31,6 @@ class CustomerCRUDController extends Controller
     $post = Customer::sortable()->paginate(5);
 
     return view('pages.home.home')->with('user',$user)->with('post',$post);
-
-
-
-    // just a regular request so return the whole view
-
-
 
 
   }
@@ -62,47 +56,23 @@ class CustomerCRUDController extends Controller
   */
   public function store(Request $request)
   {
-    // $find = File::glob('/storage/old.*');
-    if($request->file!=null){
-      if(Storage::exists('public/old.jpeg')){
-        Storage::delete('public/old.jpeg');
-      }
-      $savedurl = $request->file->storeAs('public','old.jpeg');
-    }
-    $this->validate($request,array(
-      'name' => 'required|string|max:255',
-      'gender' => 'required|string|max:255',
-      'phone' => 'required|numeric|unique:customer,phone',
-      'email' => 'required|string|email|max:255|unique:customer,email',
-      'content' => 'required|string|max:255',
-      'file'=> 'image|max:3027',
-    ));
     Customer::create([
       'name'=> $request->name,
       'gender'=> $request->gender,
       'phone'=> $request->phone,
       'email'=> $request->email,
-      'content'=> $request->content
+      'content'=> Purifier::clean($request->content)
     ]);
     $a = Customer::where('email',$request->email)->first();
     if($request->date!=null){
       $date = date('Y-m-d', strtotime(str_replace('-', '/', $request->date)));
       $a->date = $date;
     }
-
-    if(Storage::exists('public/old.jpeg')){
-      if($request->file!=null){
-        $savedurl = $request->file->store('public');
-        $savename = str_replace('public/', '', $savedurl);
-        Storage::delete('public/old.jpeg');
-        $a->avatar = 'storage/'.$savename;
-      }
-      else{
-        $cop = Storage::copy('public/old.jpeg', 'public/'.$request->phone.'.jpeg');
-        Storage::delete('public/old.jpeg');
-        $a->avatar = 'storage/'.$request->phone.'.jpeg';
-
-      }
+    if(Storage::exists('public/preview.jpeg')){
+      $cop = Storage::copy('public/preview.jpeg', 'public/'.$request->phone.'.jpeg');
+      Storage::delete('public/old.jpeg');
+      Storage::delete('public/preview.jpeg');
+      $a->avatar = 'storage/'.$request->phone.'.jpeg';
     }
     else{
       $a->avatar = 'storage/avatar.jpeg';
@@ -214,47 +184,29 @@ class CustomerCRUDController extends Controller
   public function update(Request $request)
   {
     $cus = Customer::find($request->id);
-    if($cus!=null){
-      $data = $request->all();
-      $this->validate($request,array(
-        'name' => 'required|string|max:255',
-        'gender' => 'required|string|max:255',
-        'phone' => 'numeric',
-        'email' => 'email|max:255',
-        'content' => 'required|string|max:255',
-        'file'=> 'image|max:3027',
-      ));
+    if(Storage::exists('public/preview.jpeg')){
 
+      Storage::delete('public/'.str_replace('storage/','',$cus->avatar));
+      $cop1 = Storage::copy('public/preview.jpeg', 'public/'.$request->phone.'.jpeg');
+      $cus->avatar = 'storage/'.$request->phone.'.jpeg';
+      Storage::delete('public/old.jpeg');
+      Storage::delete('public/preview.jpeg');
 
-      Validator::make($data, [
-        'email' => [
-          'required',
-          Rule::unique('customer')->ignore($cus->id),
-        ],
-        'phone' => [
-          'required',
-          Rule::unique('customer')->ignore($cus->id),
-        ],
-      ]);
-      $cus = Customer::find($request->id);
-      $cus->name = $request->input('name');
-      $cus->gender = $request->input('gender');
-      $cus->phone = $request->input('phone');
-      $cus->email = $request->input('email');
-      $cus->content = $request->input('content');
-      if($request->input('date')!=null){
-        $date = date('Y-m-d', strtotime(str_replace('-', '/', $request->input('date'))));
-        $cus->date = $date;
-      }
-      if($request->file!=null){
-        $savedurl = $request->file->store('public');
-        $savename = str_replace('public/', '', $savedurl);
-        $cus->avatar = 'storage/'.$savename;
-      }
-
-      $cus->save();
-      return redirect()->route('customer.index')->with('status','CUSTOMER UPDATED!');
     }
+    $cus->name = $request->input('name');
+    $cus->gender = $request->input('gender');
+    $cus->phone = $request->input('phone');
+    $cus->email = $request->input('email');
+    $cus->content = Purifier::clean($request->input('content'));
+    if($request->input('date')!=null){
+      $date = date('Y-m-d', strtotime(str_replace('-', '/', $request->input('date'))));
+      $cus->date = $date;
+    }
+
+
+    $cus->save();
+    return redirect()->route('customer.index')->with('status','CUSTOMER UPDATED!');
+
 
 
 
@@ -276,22 +228,67 @@ class CustomerCRUDController extends Controller
   }
 
   public function preview(Request $request){
-    $find = File::glob('/public/storage/old.*');
-    $find2 = File::glob('/storage/app/public/old.*');
+    Storage::delete('public/old.jpeg');
+    Storage::delete('public/preview.jpeg');
     if($request->file!=null){
-      if($find!=null){
-        $b = Storage::delete($find[0]);
-        $h = Storage::delete($find2[0]);
+      if(Storage::exists('public/old.jpeg')){
+        Storage::delete('public/old.jpeg');
       }
       $savedurl = $request->file->storeAs('public','old.jpeg');
     }
-    $this->validate($request,array(
-      'name' => 'required|string|max:255',
-      'gender' => 'required|string|max:255',
-      'phone' => 'required|numeric|unique:customer,phone',
-      'email' => 'required|string|email|max:255|unique:customer,email',
-      'content' => 'required|string|max:255',
-      'file'=> 'image|max:3027',
-    ));
+    if($request->id==null){
+      $this->validate($request,array(
+        'name' => 'required|string|max:255',
+        'gender' => 'required|string|max:255',
+        'phone' => 'required|numeric|unique:customer,phone',
+        'email' => 'required|string|email|max:255|unique:customer,email',
+        'content' => 'required|string|max:255',
+        'file'=> 'image|max:3027',
+      ));
+
+      if($request->file!=null){
+        $saveprview = $request->file->storeAs('public','preview.jpeg');
+      }
+      else{
+        $cop = Storage::copy('public/old.jpeg', 'public/preview.jpeg');
+      }
+      $user =User::find(1);
+      return view('pages.customer.preview')->with('request',$request)->with('user',$user);
+    }
+    else{
+      $data = $request->all();
+      $this->validate($request,array(
+        'name' => 'required|string|max:255',
+        'gender' => 'required|string|max:255',
+        'phone' => 'numeric',
+        'email' => 'email|max:255',
+        'content' => 'required|string|max:255',
+        'file'=> 'image|max:3027',
+      ));
+
+      $cus = Customer::find($request->id);
+      Validator::make($data, [
+        'email' => [
+          'required',
+          Rule::unique('customer')->ignore($cus->id),
+        ],
+        'phone' => [
+          'required',
+          Rule::unique('customer')->ignore($cus->id),
+        ],
+      ]);
+
+      if($request->file!=null){
+        $saveprview = $request->file->storeAs('public','preview.jpeg');
+      }
+      else{
+        $cop = Storage::copy('public/'.str_replace('storage/','',$cus->avatar), 'public/preview.jpeg');
+
+      }
+      $user =User::find(1);
+      return view('pages.customer.preview')->with('request',$request)->with('user',$user);
+
+    }
+
   }
 }

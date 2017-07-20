@@ -47,20 +47,20 @@
             <li id="customer2" class="nav-item"  >
               <a class="nav-link nav-toggle" >
                 <i class="icon-settings" ></i>
-                <span class="title">Admin</span>
+                <span class="title">Products</span>
                 <span class="selected"></span>
                 <span class="arrow open" ></span>
               </a>
               <ul class="sub-menu">
                 <li id="cuschild3" class="nav-item 1" >
                   <a class="nav-link ">
-                    <span class="title">Customer List
+                    <span class="title">Product List
                       <span class="selected "></span>
                     </a>
                   </li>
                   <li id="cuschild4" class="nav-item 1" >
                     <a class="nav-link " >
-                      <span class="title">New Customer
+                      <span class="title">New Product
                         <span class="selected"></span>
                       </a>
                     </li>
@@ -76,6 +76,13 @@
               <?php
               } ?>
               <?php if(Request::is('customer/create')){?>
+                <script type="text/javascript">
+                  $('#customer1').addClass('active');
+                  $('#cuschild2').addClass('active');
+                </script>
+              <?php
+              } ?>
+              <?php if(Request::is('customer/preview')){?>
                 <script type="text/javascript">
                   $('#customer1').addClass('active');
                   $('#cuschild2').addClass('active');
