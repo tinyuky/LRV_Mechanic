@@ -164,6 +164,9 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         'Barryvdh\Debugbar\ServiceProvider',
+        App\Providers\RouteServiceProvider::class,
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+
 
         /*
          * Package Service Providers...

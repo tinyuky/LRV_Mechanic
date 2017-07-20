@@ -295,16 +295,28 @@
                                       method="post" novalidate="novalidate" enctype="multipart/form-data">
                                     {!! csrf_field() !!}
                                     <div class="form-body">
+                                        <div class="form-group hidden">
+                                            <input type="text" id="oldimage" name="oldimage" value="">
+                                        </div>
+                                        <!-- <div class="form-group hidden">
+                                            <input type="text" id="oldreader" name="oldreader" value="">
+                                        </div> -->
                                         <div class="form-group">
                                             <label class="col-md-2 control-label" for="file">Avatar</label>
 
                                             <div class="col-md-8">
-                                                <img id="imgdf" src="{!!asset('storage/avatar.jpeg')!!}" height="200px"
-                                                     width="200px" style="margin-bottom: 10px">
+                                                @if(old('oldimage')!=null)
+                                                    <img id="imgdf" src="{!!asset('storage/old.jpeg')!!}" height="200px"
+                                                         width="200px" style="margin-bottom: 10px">
+                                                @else
+                                                    <img id="imgdf" src="{!!asset('storage/avatar.jpeg')!!}"
+                                                         height="200px"
+                                                         width="200px" style="margin-bottom: 10px">
+
+                                                @endif
                                                 <br>
                                                 <input onchange="ValidateSize(this)" type="file" id="file" name="file"
                                                        accept="image/*">
-
                                                 @if ($errors->has('file'))
                                                     <span class="help-block help-block-error danger"
                                                           style="color: red">{{$errors->first('file')}}</span>
@@ -318,7 +330,6 @@
                                                                 if (FileSize > 3) {
                                                                     alert('File size exceeds 3 MB');
                                                                     $('#file_reset').trigger('click');
-
                                                                 }
                                                                 else {
                                                                     var reader = new FileReader();
@@ -329,6 +340,8 @@
                                                                                 .height(200);
                                                                     };
                                                                     reader.readAsDataURL(file.files[0]);
+                                                                    $('#oldimage').val(file.files[0]);
+
                                                                 }
                                                             }
                                                             else {
@@ -341,6 +354,7 @@
                                                     </script>
                                             </div>
                                         </div>
+
 
                                         <div class="form-group">
                                             <label for="name" class="col-md-2 control-label">Name<span class="required"

@@ -1,6 +1,6 @@
 <?php
 use App\User;
-use App\Customer;	
+use App\Customer;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,4 +29,4 @@ Route::get('/test',function(){
 Route::resource('customer','CustomerCRUDController');
 Route::get('search', 'CustomerCRUDController@showfromsearch')->name('customer.searchform');
 Route::post('customer/update', 'CustomerCRUDController@update')->name('customer.up');
-
+Route::post('customer/preview', 'CustomerCRUDController@preview')->name('customer.preview');

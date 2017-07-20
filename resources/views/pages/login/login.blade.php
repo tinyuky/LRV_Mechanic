@@ -4,7 +4,7 @@
  <div class="user-login-5">
             <div class="row">
                 <div class="col-md-6 ">                   
-                        <img class="login-bg" src="{!!asset('assets/pages/img/login/bg1.jpg')!!}" style="height: 200px;width: 700px" /> 
+                        <img class="login-bg" src="{!!asset('assets/pages/img/login/bg1.jpg')!!}" style="height: 700px;width: 720px" /> 
                 </div>
                 <div class="col-md-6 login-container">
                     <div class="login-content">
