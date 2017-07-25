@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -29,7 +28,6 @@ class CustomerCRUDController extends Controller
   {
     $user = User::find(1);
     $post = Customer::sortable()->paginate(5);
-
     return view('pages.home.home')->with('user',$user)->with('post',$post);
 
 

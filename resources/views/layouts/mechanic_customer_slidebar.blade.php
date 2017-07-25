@@ -53,80 +53,187 @@
               </a>
               <ul class="sub-menu">
                 <li id="cuschild3" class="nav-item 1" >
-                  <a class="nav-link ">
-                    <span class="title">Product List
+                  <a href="{{route('product.index')}}" class="nav-link ">
+                    <span class="title">Product Table
                       <span class="selected "></span>
                     </a>
                   </li>
                   <li id="cuschild4" class="nav-item 1" >
-                    <a class="nav-link " >
+                    <a href="{{route('product.create')}}" class="nav-link " >
                       <span class="title">New Product
                         <span class="selected"></span>
                       </a>
                     </li>
+                    <li id="cuschild5" class="nav-item 1" >
+                      <a href="{{route('product.showlist')}}" class="nav-link " >
+                        <span class="title">Product Show
+                          <span class="selected"></span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
 
-                  </ul>
-                </li>
-              </ul>
-              <?php if(Request::is('customer')){?>
-                <script type="text/javascript">
-                  $('#customer1').addClass('active');
-                  $('#cuschild1').addClass('active');
-                </script>
-              <?php
-              } ?>
-              <?php if(Request::is('customer/create')){?>
-                <script type="text/javascript">
-                  $('#customer1').addClass('active');
-                  $('#cuschild2').addClass('active');
-                </script>
-              <?php
-              } ?>
-              <?php if(Request::is('customer/preview')){?>
-                <script type="text/javascript">
-                  $('#customer1').addClass('active');
-                  $('#cuschild2').addClass('active');
-                </script>
-              <?php
-              } ?>
-              <!-- <script type="text/javascript">
-              function checked(id){
-                var elms = document.getElementsByClassName('nav-item active');
-                if(elms.length>0){
-                  for (i=0;i<elms.length;i++){
-                    elms[i].classList.remove('active');
+                  <li id="customer3" class="nav-item"  >
+                    <a class="nav-link nav-toggle" >
+                      <i class="icon-settings" ></i>
+                      <span class="title">Categories</span>
+                      <span class="selected"></span>
+                      <span class="arrow open" ></span>
+                    </a>
+                    <ul class="sub-menu">
+                      <li id="cuschild6" class="nav-item 1" >
+                        <a href="{{route('categories.index')}}" class="nav-link ">
+                          <span class="title">Categories Table
+                            <span class="selected "></span>
+                          </a>
+                        </li>
+                        <li id="cuschild7" class="nav-item 1" >
+                          <a href="{{route('categories.create')}}" class="nav-link " >
+                            <span class="title">New Category
+                              <span class="selected"></span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li id="customer4" class="nav-item"  >
+                        <a class="nav-link nav-toggle" >
+                          <i class="icon-settings" ></i>
+                          <span class="title">Branches</span>
+                          <span class="selected"></span>
+                          <span class="arrow open" ></span>
+                        </a>
+                        <ul class="sub-menu">
+                          <li id="cuschild8" class="nav-item 1" >
+                            <a href="{{route('branches.index')}}" class="nav-link ">
+                              <span class="title">Branches Table
+                                <span class="selected "></span>
+                              </a>
+                            </li>
+                            <li id="cuschild9" class="nav-item 1" >
+                              <a href="{{route('branches.create')}}" class="nav-link " >
+                                <span class="title">New Branch
+                                  <span class="selected"></span>
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                        <?php if(Request::is('customer')){?>
+                          <script type="text/javascript">
+                          $('#customer1').addClass('active');
+                          $('#cuschild1').addClass('active');
+                          </script>
+                          <?php
+                        } ?>
+                        <?php if(Request::is('customer/create')){?>
+                          <script type="text/javascript">
+                          $('#customer1').addClass('active');
+                          $('#cuschild2').addClass('active');
+                          </script>
+                          <?php
+                        } ?>
+                        <?php if(Request::is('customer/preview')){?>
+                          <script type="text/javascript">
+                          $('#customer1').addClass('active');
+                          $('#cuschild2').addClass('active');
+                          </script>
+                          <?php
+                        } ?>
+                        <?php if(Request::is('product')){?>
+                          <script type="text/javascript">
+                          $('#customer2').addClass('active');
+                          $('#cuschild3').addClass('active');
+                          </script>
+                          <?php
+                        } ?>
+                        <?php if(Request::is('product/create')){?>
+                          <script type="text/javascript">
+                          $('#customer2').addClass('active');
+                          $('#cuschild4').addClass('active');
+                          </script>
+                          <?php
+                        } ?>
+                        <?php if(Request::is('product/preview')){?>
+                          <script type="text/javascript">
+                          $('#customer2').addClass('active');
+                          $('#cuschild4').addClass('active');
+                          </script>
+                          <?php
+                        } ?>
+                        <?php if(Request::is('show')){?>
+                          <script type="text/javascript">
+                          $('#customer2').addClass('active');
+                          $('#cuschild5').addClass('active');
+                          </script>
+                          <?php
+                        } ?>
+                        <?php if(Request::is('categories')){?>
+                          <script type="text/javascript">
+                          $('#customer3').addClass('active');
+                          $('#cuschild6').addClass('active');
+                          </script>
+                          <?php
+                        } ?>
+                        <?php if(Request::is('categories/create')){?>
+                          <script type="text/javascript">
+                          $('#customer3').addClass('active');
+                          $('#cuschild7').addClass('active');
+                          </script>
+                          <?php
+                        } ?>
+                        <?php if(Request::is('branches')){?>
+                          <script type="text/javascript">
+                          $('#customer4').addClass('active');
+                          $('#cuschild8').addClass('active');
+                          </script>
+                          <?php
+                        } ?>
+                        <?php if(Request::is('branches/create')){?>
+                          <script type="text/javascript">
+                          $('#customer4').addClass('active');
+                          $('#cuschild9').addClass('active');
+                          </script>
+                          <?php
+                        } ?>
+                        <!-- <script type="text/javascript">
+                        function checked(id){
+                        var elms = document.getElementsByClassName('nav-item active');
+                        if(elms.length>0){
+                        for (i=0;i<elms.length;i++){
+                        elms[i].classList.remove('active');
+                      }
+                    }
+                    $("#"+id).addClass('active');
                   }
-                }
-                $("#"+id).addClass('active');
-              }
-              function childchecked(id){
-                var elms = document.getElementsByClassName('nav-item 1');
-                if(elms.length>0){
+                  function childchecked(id){
+                  var elms = document.getElementsByClassName('nav-item 1');
+                  if(elms.length>0){
                   for (i=0;i<elms.length;i++){
-                    elms[i].classList.remove('active');
-                  }
+                  elms[i].classList.remove('active');
                 }
-                $("#"+id).addClass('active');
               }
+              $("#"+id).addClass('active');
+            }
 
-              </script> -->
-              <!-- END SIDEBAR MENU -->
-              <!-- END SIDEBAR MENU -->
-            </div>
-            <!-- END SIDEBAR -->
-          </div>
-          <!-- END SIDEBAR -->
-          <!-- BEGIN CONTENT -->
-
-          <div class="page-content-wrapper">
-            <!-- BEGIN CONTENT BODY -->
-            @yield('content')
-
-            <!-- END CONTENT BODY -->
-          </div>
-          <!-- END CONTENT -->
-
-          <!-- END QUICK SIDEBAR -->
+          </script> -->
+          <!-- END SIDEBAR MENU -->
+          <!-- END SIDEBAR MENU -->
         </div>
-        <!-- END CONTAINER -->
-        @endsection
+        <!-- END SIDEBAR -->
+      </div>
+      <!-- END SIDEBAR -->
+      <!-- BEGIN CONTENT -->
+
+      <div class="page-content-wrapper">
+        <!-- BEGIN CONTENT BODY -->
+        @yield('content')
+
+        <!-- END CONTENT BODY -->
+      </div>
+      <!-- END CONTENT -->
+
+      <!-- END QUICK SIDEBAR -->
+    </div>
+    <!-- END CONTAINER -->
+    @endsection

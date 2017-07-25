@@ -76,7 +76,7 @@
                                         </div>
                                         <div class="form-group hidden">
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control" name="id" 
+                                                <input type="text" class="form-control" name="id"
                                                        placeholder="Name" data-required="1"
                                                        value="{{ $cus->id }}">
                                             </div>
@@ -350,7 +350,6 @@
                                                                     };
                                                                     reader.readAsDataURL(file.files[0]);
                                                                     $('#oldimage').val(file.files[0]);
-
                                                                 }
                                                             }
                                                             else {

@@ -27,8 +27,20 @@ Route::get('/test',function(){
 })->name('test');
 
 Route::resource('customer','CustomerCRUDController');
-Route::get('search', 'CustomerCRUDController@showfromsearch')->name('customer.searchform');
+Route::get('searchcus', 'CustomerCRUDController@showfromsearch')->name('customer.searchform');
 Route::post('customer/update', 'CustomerCRUDController@update')->name('customer.up');
 Route::post('customer/preview', 'CustomerCRUDController@preview')->name('customer.preview');
 Route::post('customer/preview/save', 'CustomerCRUDController@store')->name('customer.previewstore');
 Route::post('customer/preview/update', 'CustomerCRUDController@update')->name('customer.previewup');
+
+Route::resource('product','ProductCRUDController');
+Route::post('product/preview', 'ProductCRUDController@preview')->name('product.preview');
+Route::post('product/preview/save', 'ProductCRUDController@store')->name('product.previewstore');
+Route::post('product/preview/update', 'ProductCRUDController@update')->name('product.previewup');
+Route::get('search','ProductCRUDController@search')->name('product.search');
+Route::get('show','ProductCRUDController@showlist')->name('product.showlist');
+Route::get('show/{id}','ProductCRUDController@getinfo')->name('product.getinfo');
+
+Route::get('shop','FrontEnd\ShopController@index')->name('shop.index');
+Route::resource('categories','Backend\CategoriesController');
+Route::resource('branches','Backend\BranchesController');
