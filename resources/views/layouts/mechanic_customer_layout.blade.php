@@ -44,6 +44,7 @@
 	<script src="{!!asset('assets/global/plugins/jquery.min.js')!!}" type="text/javascript"></script>
 
 
+
 	<!-- END GLOBAL MANDATORY STYLES -->
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<link href="{!!asset('assets/global/plugins/fancybox/source/jquery.fancybox.css')!!}" rel="stylesheet" type="text/css" />
@@ -53,7 +54,9 @@
 	<!-- END THEME GLOBAL STYLES -->
 	<!-- BEGIN THEME LAYOUT STYLES -->
 	<!-- END THEME LAYOUT STYLES -->
-
+	<link href="{!!asset('backend/select2-4.0.3/dist/css/select2.min.css')!!}" rel="stylesheet" type="text/css" rel="stylesheet"/>
+	<script type="text/javascript" src="{!!asset('backend/select2-4.0.3/dist/js/select2.full.js')!!}"></script>
+	<script src="{!!asset('backend/select2-4.0.3/dist/js/select2.min.js')!!}"></script>
 
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
@@ -107,6 +110,10 @@
 	<script src="{!!asset('assets/layouts/layout/scripts/demo.min.js')!!}" type="text/javascript"></script>
 	<script src="{!!asset('assets/layouts/global/scripts/quick-sidebar.min.js')!!}" type="text/javascript"></script>
 	<script src="{!!asset('assets/pages/scripts/table-datatables-managed.min.js')!!}" type="text/javascript"></script>
+	<script src="{{asset('backend/js/product_create.js')}}"></script>
+	<script src="{{asset('frontend/js/ajax_handle.js')}}"></script>
+
+
 
 	<!-- END CORE PLUGINS -->
 	<!-- BEGIN PAGE LEVEL PLUGINS -->

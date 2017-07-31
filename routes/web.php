@@ -1,6 +1,7 @@
 <?php
 use App\User;
 use App\Customer;
+use App\product;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,4 +44,13 @@ Route::get('show/{id}','ProductCRUDController@getinfo')->name('product.getinfo')
 
 Route::get('shop','FrontEnd\ShopController@index')->name('shop.index');
 Route::resource('categories','Backend\CategoriesController');
+route::post('categories/up','Backend\CategoriesController@update')->name('categories.up');
 Route::resource('branches','Backend\BranchesController');
+route::post('branches/up','Backend\BranchesController@update')->name('branches.up');
+route::get('shop/test',function(){
+  $user = product::all();
+  return view('frontend.pages.product_detail')->with('posts',$user);
+});
+
+Route::get('shop/{id}','FrontEnd\ShopController@showinfo')->name('shop.showinfo');
+Route::post('product/create/getcate','ProductCRUDController@getcate')->name('product.getcate');
