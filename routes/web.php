@@ -42,7 +42,7 @@ Route::get('search','ProductCRUDController@search')->name('product.search');
 Route::get('show','ProductCRUDController@showlist')->name('product.showlist');
 Route::get('show/{id}','ProductCRUDController@getinfo')->name('product.getinfo');
 
-Route::get('shop','FrontEnd\ShopController@index')->name('shop.index');
+Route::get('index','FrontEnd\ShopController@index')->name('shop.index');
 Route::resource('categories','Backend\CategoriesController');
 route::post('categories/up','Backend\CategoriesController@update')->name('categories.up');
 Route::resource('branches','Backend\BranchesController');
@@ -51,6 +51,19 @@ route::get('shop/test',function(){
   $user = product::all();
   return view('frontend.pages.product_detail')->with('posts',$user);
 });
-
-Route::get('shop/{id}','FrontEnd\ShopController@showinfo')->name('shop.showinfo');
+// Route::get('shop/{cate}/{branch}','FrontEnd\ShopController@showfromlink')->name('shop.showfromlink');
+// Route::get('shop/branch={branch}','FrontEnd\ShopController@showfromlinkbr')->name('shop.showfromlinkbr');
+Route::get('index/id={id}','FrontEnd\ShopController@showinfo')->name('shop.showinfo');
 Route::post('product/create/getcate','ProductCRUDController@getcate')->name('product.getcate');
+
+Route::post('addcart','FrontEnd\ShopController@addCart')->name('shop.addcart');
+Route::post('deletecart','FrontEnd\ShopController@deleteCart')->name('shop.deletecart');
+Route::post('removecart','FrontEnd\ShopController@removeCart')->name('shop.removecart');
+Route::get('index/cart','FrontEnd\ShopController@viewCart')->name('shop.viewcart');
+Route::get('shop','FrontEnd\ShopController@shop')->name('shop.shop');
+Route::get('shop/{name}','FrontEnd\ShopController@shopbycate')->name('shop.shop.cate');
+Route::post('fillshop','FrontEnd\ShopController@ajaxsearch');
+// Route::get('shop/reset',function(){
+//     Session::flush();
+//     return redirect()->route('shop.index');
+// });
