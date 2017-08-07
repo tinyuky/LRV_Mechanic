@@ -70,7 +70,11 @@
       <div class="col-sm-3">
         <div class="left-sidebar">
           <div class="price-range">
+            @if(App::isLocale('jp'))
+            <h2>@lang('index.pricerange')</h2>
+            @else
             <h2>Price Range</h2>
+            @endif
             <div class="well text-center">
               @if($posts)
               @php

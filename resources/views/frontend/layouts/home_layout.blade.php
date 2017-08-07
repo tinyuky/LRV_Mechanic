@@ -72,17 +72,16 @@
             </div>
             <div class="btn-group pull-right">
               <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                  USA
+                <button id="btnmulti" type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Canada</a></li>
-                  <li><a href="#">UK</a></li>
+                  <li><a class="multiln"> <p class="hidden">us</p>US</a></li>
+                  <li><a class="multiln"><p class="hidden">jp</p>日本語</a></li>
                 </ul>
               </div>
 
-              <div class="btn-group">
+              <!-- <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
                   DOLLAR
                   <span class="caret"></span>
@@ -91,18 +90,21 @@
                   <li><a href="#">Canadian Dollar</a></li>
                   <li><a href="#">Pound</a></li>
                 </ul>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="col-sm-8">
             <div class="shop-menu pull-right">
               <ul class="nav navbar-nav">
-                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                 <li>
+                  @if(App::isLocale('jp'))
+                  <a href="{{route('shop.viewcart')}}"><i class="fa fa-shopping-cart"></i> @lang('index.cart')
+                  </a>
+                  @else
                   <a href="{{route('shop.viewcart')}}"><i class="fa fa-shopping-cart"></i> Cart
                   </a>
+                  @endif
                 </li>
-                <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
               </ul>
             </div>
           </div>
@@ -124,8 +126,8 @@
             </div>
             <div class="mainmenu pull-left">
               <ul class="nav navbar-nav collapse navbar-collapse">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li class="dropdown"><a href="{{route('shop.shop')}}">Shop<i class="fa fa-angle-down"></i></a>
+                <li><a href="index.html" class="active">{{trans('index.home')}}</a></li>
+                <li class="dropdown"><a href="{{route('shop.shop')}}">{{trans('index.shop')}}<i class="fa fa-angle-down"></i></a>
                   <ul role="menu" class="sub-menu">
                     @foreach($ctslide as $ct)
                     <li><a href="{{route('shop.shop.cate',['name'=>$ct->name])}}">{{$ct->name}}</a></li>
@@ -145,7 +147,7 @@
           </div>
           <div class="col-sm-3">
             <div class="search_box pull-right">
-              <input id="slidesearch" value="" type="text" placeholder="Search"/>
+              <input id="slidesearch" value="" type="text" placeholder="{{trans('index.search')}}"/>
             </div>
           </div>
         </div>
@@ -170,5 +172,6 @@
   <script type="text/javascript" src="{!!asset('frontend/js/slick.js')!!}"></script>
   <script type="text/javascript" src="{!!asset('frontend/js/ajax_cart.js')!!}"></script>
   <script type="text/javascript" src="{!!asset('frontend/js/ajax_shop.js')!!}"></script>
+  <script type="text/javascript" src="{!!asset('frontend/js/ajax_lang.js')!!}"></script>
 </body>
 </html>

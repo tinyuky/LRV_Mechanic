@@ -1,5 +1,5 @@
 <div class="features_items" id="load"><!--features_items-->
-  <h2 class="title text-center">Features Items</h2>
+  <h2 class="title text-center">{{trans('index.featuresitem')}}</h2>
 @if(count($posts)>0)
 @foreach($posts as $p)
 {!! csrf_field() !!}
@@ -17,7 +17,7 @@
           <div class="overlay-content" >
             <h2>${{number_format($p->price)}}</h2>
             <p>{{$p->title}}</p>
-            <a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i><p class="hidden">{{$p->id}}</p>Add to cart</a>
+            <a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i><p class="hidden">{{$p->id}}</p>{{trans('index.cart')}}</a>
           </div>
         </div>
         @else
@@ -25,7 +25,7 @@
           <div class="overlay-content" >
             <h2>${{number_format($p->price)}}</h2>
             <p>{{$p->title}}</p>
-            <a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i><p class="hidden">{{$p->id}}</p>Add to cart</a>
+            <a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i><p class="hidden">{{$p->id}}</p>{{trans('index.cart')}}</a>
           </div>
         </div>
         @endif
@@ -34,7 +34,7 @@
           <div class="overlay-content" >
             <h2>${{number_format($p->price)}}</h2>
             <p>{{$p->title}}</p>
-            <a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i><p class="hidden">{{$p->id}}</p>Add to cart</a>
+            <a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i><p class="hidden">{{$p->id}}</p>{{trans('index.cart')}}</a>
           </div>
         </div>
         @endif
@@ -43,7 +43,7 @@
     </div>
     <div class="col-md-2">
     </div>
-    <a href="{{route('shop.showinfo',['id'=>$p->id])}}" class="btn btn-default add-to-cart"><i class="fa fa-search"></i>See</a>
+    <a href="{{route('shop.showinfo',['id'=>$p->id])}}" class="btn btn-default add-to-cart"><i class="fa fa-search"></i>{{trans('index.see')}}</a>
     <div class="choose">
       <ul class="nav nav-pills nav-justified">
         <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>

@@ -1,0 +1,12 @@
+<?php
+  return[
+    'home'=>'自宅',
+    'shop'=>'ショップ',
+    'pricerange'=>'価格帯',
+    'search'=>'サーチ',
+    'cart'=>'カート',
+    'featuresitem'=>'特集項目',
+    'see'=>'見る',
+    'addtowishlist'=>'ウィッシュリストに追加',
+  ];
+ ?>

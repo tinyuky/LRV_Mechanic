@@ -159,4 +159,10 @@ class ShopController extends Controller
     }
   }
 
+  public function changeLang(Request $request){
+    if($request->ajax()){
+      $request->session()->put('locale',$request->locale);
+    }
+  }
+
 }

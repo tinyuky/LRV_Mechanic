@@ -2,6 +2,7 @@
 use App\User;
 use App\Customer;
 use App\product;
+use App\Cart;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,7 +64,4 @@ Route::get('index/cart','FrontEnd\ShopController@viewCart')->name('shop.viewcart
 Route::get('shop','FrontEnd\ShopController@shop')->name('shop.shop');
 Route::get('shop/{name}','FrontEnd\ShopController@shopbycate')->name('shop.shop.cate');
 Route::post('fillshop','FrontEnd\ShopController@ajaxsearch');
-// Route::get('shop/reset',function(){
-//     Session::flush();
-//     return redirect()->route('shop.index');
-// });
+Route::post('langmul', 'FrontEnd\ShopController@changeLang');
